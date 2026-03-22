@@ -1,0 +1,56 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0f172a;
+  --color-foreground: #f8fafc;
+  
+  --color-glass: rgba(255, 255, 255, 0.05);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+  --color-glass-strong: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+  html, body {
+    @apply bg-background text-foreground tracking-tight m-0 p-0 antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  
+  /* Create an animated gradient background */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.15), rgba(15, 23, 42, 0) 50%);
+    z-index: -1;
+    animation: pulseBackground 15s ease-in-out infinite alternate;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl shadow-xl transition-all hover:bg-white/10 hover:border-white/20;
+  }
+  .glass-input {
+    @apply w-full bg-black/20 border border-white/10 rounded-xl px-4 py-3 text-white placeholder:text-gray-400 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all;
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r w-full from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-medium py-3 px-6 rounded-xl shadow-lg shadow-blue-500/25 transition-all active:scale-95 text-center flex items-center justify-center gap-2;
+  }
+  .btn-outline {
+    @apply border w-full border-white/20 hover:bg-white/10 text-white font-medium py-3 px-6 rounded-xl transition-all active:scale-95 text-center flex items-center justify-center gap-2;
+  }
+}
+
+@keyframes pulseBackground {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(-2%, -2%) scale(1.05); }
+}
